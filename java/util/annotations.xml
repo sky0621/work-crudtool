@@ -1,0 +1,6 @@
+<root>
+  <item name='java.util.Collection java.util.stream.Stream&lt;E&gt; stream()'>
+    <annotation name='org.jetbrains.annotations.Nullable'/>
+    <annotation name='java.lang.annotation.Deprecated'/>
+  </item>
+</root>
