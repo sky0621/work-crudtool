@@ -15,6 +15,11 @@ import java.util.List;
  * Created by SS on 2016/05/27.
  */
 public class SqlParser implements IfSqlParser {
+
+    public SqlParser() {
+
+    }
+
     public IfSqlParseResult parse(String sql) {
         Statement stmt = null;
         Select selectStatement = null;
@@ -25,7 +30,7 @@ public class SqlParser implements IfSqlParser {
             selectStatement = (Select) stmt;
 
         } catch (JSQLParserException e) {
-            // handle error
+            // TODO handle error
             e.printStackTrace();
         }
 
