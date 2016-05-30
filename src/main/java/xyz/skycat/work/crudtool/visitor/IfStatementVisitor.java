@@ -8,12 +8,15 @@ import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.*;
+import xyz.skycat.work.crudtool.visitor.result.IfStatementVisitResult;
 
 /**
  * Created by SS on 2016/05/28.
  */
 // TODO think! DELETE, INSERT, UPDATE, MERGE, etc?
 public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, ExpressionVisitor, ItemsListVisitor, IntoTableVisitor, OrderByVisitor {
+
+    public IfStatementVisitResult getStatementVisitResult();
 
     // by SelectVisitor
     @Override
@@ -43,7 +46,8 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by FromItemVisitor
     @Override
     default public void visit(SubJoin subJoin) {
-        // TODO think common process
+        subJoin.getLeft().accept(this);
+        subJoin.getJoin().getRightItem().accept(this);
     }
 
     // by FromItemVisitor
@@ -133,7 +137,7 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by ExpressionVisitor
     @Override
     default public void visit(Parenthesis parenthesis) {
-        // TODO think common process
+        parenthesis.getExpression().accept(this);
     }
 
     // by ExpressionVisitor
@@ -145,67 +149,71 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by ExpressionVisitor
     @Override
     default public void visit(Addition addition) {
-        // TODO think common process
+        visitBinaryExpression(addition);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(Division division) {
-        // TODO think common process
+        visitBinaryExpression(division);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(Multiplication multiplication) {
-        // TODO think common process
+        visitBinaryExpression(multiplication);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(Subtraction subtraction) {
-        // TODO think common process
+        visitBinaryExpression(subtraction);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(AndExpression andExpression) {
-        // TODO think common process
+        visitBinaryExpression(andExpression);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(OrExpression orExpression) {
-        // TODO think common process
+        visitBinaryExpression(orExpression);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(Between between) {
-        // TODO think common process
+        between.getLeftExpression().accept(this);
+        between.getBetweenExpressionStart().accept(this);
+        between.getBetweenExpressionEnd().accept(this);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(EqualsTo equalsTo) {
-        // TODO think common process
+        visitBinaryExpression(equalsTo);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(GreaterThan greaterThan) {
-        // TODO think common process
+        visitBinaryExpression(greaterThan);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(GreaterThanEquals greaterThanEquals) {
-        // TODO think common process
+        visitBinaryExpression(greaterThanEquals);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(InExpression inExpression) {
-        // TODO think common process
+        inExpression.getLeftExpression().accept(this);
+        inExpression.getLeftItemsList().accept(this);
+        inExpression.getRightItemsList().accept(this);
     }
 
     // by ExpressionVisitor
@@ -217,25 +225,25 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by ExpressionVisitor
     @Override
     default public void visit(LikeExpression likeExpression) {
-        // TODO think common process
+        visitBinaryExpression(likeExpression);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(MinorThan minorThan) {
-        // TODO think common process
+        visitBinaryExpression(minorThan);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(MinorThanEquals minorThanEquals) {
-        // TODO think common process
+        visitBinaryExpression(minorThanEquals);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(NotEqualsTo notEqualsTo) {
-        // TODO think common process
+        visitBinaryExpression(notEqualsTo);
     }
 
     // by ExpressionVisitor
@@ -247,7 +255,7 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by FromItemVisitor
     @Override
     default public void visit(SubSelect subSelect) {
-        // TODO think common process
+        subSelect.getSelectBody().accept(this);
     }
 
     // by ExpressionVisitor
@@ -265,19 +273,19 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by ExpressionVisitor
     @Override
     default public void visit(ExistsExpression existsExpression) {
-        // TODO think common process
+        existsExpression.getRightExpression().accept(this);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(AllComparisonExpression allComparisonExpression) {
-        // TODO think common process
+        allComparisonExpression.getSubSelect().getSelectBody().accept(this);
     }
 
     // by ExpressionVisitor
     @Override
     default public void visit(AnyComparisonExpression anyComparisonExpression) {
-        // TODO think common process
+        anyComparisonExpression.getSubSelect().getSelectBody().accept(this);
     }
 
     // by ExpressionVisitor
@@ -409,7 +417,7 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     // by ExpressionVisitor
     @Override
     default public void visit(ExpressionList expressionList) {
-        // TODO think common process
+        expressionList.getExpressions().stream().forEach(expression -> expression.accept(this));
     }
 
     // by ExpressionVisitor
@@ -422,6 +430,11 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     @Override
     default public void visit(OrderByElement orderByElement) {
         // TODO think common process
+    }
+
+    default public void visitBinaryExpression(BinaryExpression binaryExpression) {
+        binaryExpression.getLeftExpression().accept(this);
+        binaryExpression.getRightExpression().accept(this);
     }
 
 }

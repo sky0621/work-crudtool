@@ -1,22 +1,24 @@
 package xyz.skycat.work.crudtool.visitor;
 
 import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.select.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.sf.jsqlparser.statement.select.PlainSelect;
+import xyz.skycat.work.crudtool.visitor.result.IfStatementVisitResult;
+import xyz.skycat.work.crudtool.visitor.result.StatementVisitResult;
 
 /**
  * Created by SS on 2016/05/28.
  */
-public class TableNamesFinder implements IfStatementVisitor {
+public class TableNamesFindVisitor implements IfStatementVisitor {
 
-    private List<String> tableNameList = null;
+    private IfStatementVisitResult statementVisitResult = null;
 
-    public List<String> getTableNameList(Select select) {
-        tableNameList = new ArrayList<>();
-        select.getSelectBody().accept(this);
-        return tableNameList;
+    public TableNamesFindVisitor() {
+        statementVisitResult = new StatementVisitResult();
+    }
+
+    @Override
+    public IfStatementVisitResult getStatementVisitResult() {
+        return statementVisitResult;
     }
 
     // by SelectVisitor
@@ -38,13 +40,7 @@ public class TableNamesFinder implements IfStatementVisitor {
     // by IntoTableVisitor
     @Override
     public void visit(Table table) {
-        tableNameList.add(table.getFullyQualifiedName());
-    }
-
-    // by FromItemVisitor
-    @Override
-    public void visit(SubSelect subSelect) {
-        subSelect.getSelectBody().accept(this);
+        statementVisitResult.addTableName(table.getFullyQualifiedName());
     }
 
 }

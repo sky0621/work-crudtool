@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool;
 
+import xyz.skycat.work.crudtool.facade.TableNamesFindFacade;
 import xyz.skycat.work.crudtool.parser.IfSqlParser;
 import xyz.skycat.work.crudtool.parser.SqlParser;
 import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
@@ -15,8 +16,8 @@ public class Main {
 
         // parse
         String sql = "SELECT it.* FROM fs_mst_item it INNER JOIN fs_mst_category ct ON ct.category_id = it.category_id WHERE it.value > 100 ORDER BY it.value DESC";    // Sample
-        IfSqlParser parser = new SqlParser();
-        IfSqlParseResult result = parser.parse(sql);
+        TableNamesFindFacade facade = new TableNamesFindFacade();
+        facade.find(sql);
         System.out.println("END");
 //        result.print();
 
