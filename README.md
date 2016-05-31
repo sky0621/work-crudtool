@@ -1,6 +1,6 @@
 # work-crudtool
 
-## growing up process
+## growing up process ... Not Test1st. Oops.
 
 ### 1st SQL string parse -> get TableName List
 

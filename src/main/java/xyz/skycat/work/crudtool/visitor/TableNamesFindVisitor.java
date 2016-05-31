@@ -24,6 +24,7 @@ public class TableNamesFindVisitor implements IfStatementVisitor {
     // by SelectVisitor
     @Override
     public void visit(PlainSelect plainSelect) {
+        // TODO think! avoid if statement.
         if (plainSelect.getFromItem() != null) {
             plainSelect.getFromItem().accept(this);
         }
