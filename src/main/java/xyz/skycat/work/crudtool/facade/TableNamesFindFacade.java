@@ -9,6 +9,7 @@ import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.visitor.IfStatementVisitor;
 import xyz.skycat.work.crudtool.visitor.TableNamesFindVisitor;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,29 @@ public class TableNamesFindFacade {
         tableNameList = new ArrayList<>();
     }
 
+    @Deprecated
     public List<String> find(String sql) {
 
         IfSqlParser parser = new SqlParser();
         IfSqlParseResult result = parser.parse(sql);
+        if(!(result.getStatement() instanceof Select)) {
+            return null;
+        }
+        Select selectStatement = (Select)result.getStatement();
+
+        IfStatementVisitor finder = new TableNamesFindVisitor();
+        selectStatement.getSelectBody().accept(finder);
+
+        IfStatementResultConverter converter = new StatementResultConverter();
+        tableNameList = converter.convertToTableNameList(finder.getStatementVisitResult());
+
+        return tableNameList;
+    }
+
+    public List<String> find(InputStream sqlInputStream) {
+
+        IfSqlParser parser = new SqlParser();
+        IfSqlParseResult result = parser.parse(sqlInputStream);
         if(!(result.getStatement() instanceof Select)) {
             return null;
         }

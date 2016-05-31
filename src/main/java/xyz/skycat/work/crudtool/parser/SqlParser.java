@@ -7,27 +7,19 @@ import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.parser.result.SqlParseResult;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * Created by SS on 2016/05/27.
  */
-// I know Parser and to do parse.
+// I know JSqlParser and to do parse.
 public class SqlParser implements IfSqlParser {
 
-    public SqlParser() {
-
-    }
-
+    @Override
     public IfSqlParseResult parse(String sql) {
         Statement stmt = null;
-//        Select selectStatement = null;
         try {
             stmt = CCJSqlParserUtil.parse(sql);
-
-            // cast each Statement
-//            selectStatement = (Select) stmt;
-//            TableNamesFindVisitor finder = new TableNamesFindVisitor();
-//            List<String> tableNameList = finder.getTableNameList(selectStatement);
 
         } catch (JSQLParserException e) {
             // TODO handle error
@@ -37,23 +29,29 @@ public class SqlParser implements IfSqlParser {
         IfSqlParseResult parseResult = new SqlParseResult();
         parseResult.setStatement(stmt);
 
-        // use converter
-//        SelectBody body = selectStatement.getSelectBody();
-//        System.out.println(body.toString());
-//        List<WithItem> withItemList = selectStatement.getWithItemsList();
-//        if (withItemList != null) {
-//            withItemList.stream().forEach(item -> {
-//                System.out.println(item.getName());
-//            });
-//        }
-//        System.out.println(selectStatement.toString());
-
         return parseResult;
     }
 
     // FIXME
     public IfSqlParseResult parse(File sqlFile) {
         return null;
+    }
+
+    @Override
+    public IfSqlParseResult parse(InputStream sqlInputStream) {
+        Statement stmt = null;
+        try {
+            stmt = CCJSqlParserUtil.parse(sqlInputStream);
+
+        } catch (JSQLParserException e) {
+            // TODO handle error
+            e.printStackTrace();
+        }
+
+        IfSqlParseResult parseResult = new SqlParseResult();
+        parseResult.setStatement(stmt);
+
+        return parseResult;
     }
 
 }
