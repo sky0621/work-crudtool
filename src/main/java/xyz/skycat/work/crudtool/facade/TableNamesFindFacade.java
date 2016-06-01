@@ -6,10 +6,15 @@ import xyz.skycat.work.crudtool.converter.StatementResultConverter;
 import xyz.skycat.work.crudtool.parser.IfSqlParser;
 import xyz.skycat.work.crudtool.parser.SqlParser;
 import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
-import xyz.skycat.work.crudtool.visitor.IfStatementVisitor;
-import xyz.skycat.work.crudtool.visitor.TableNamesFindVisitor;
+import xyz.skycat.work.crudtool.parser.visitor.IfStatementVisitor;
+import xyz.skycat.work.crudtool.parser.visitor.TableNamesFindVisitor;
+import xyz.skycat.work.crudtool.view.IfSqlParseResultView;
+import xyz.skycat.work.crudtool.view.SqlParseResultView;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,41 +30,14 @@ public class TableNamesFindFacade {
         tableNameList = new ArrayList<>();
     }
 
-    @Deprecated
-    public List<String> find(String sql) {
+    public void output1SqlFileCrud(Path sqlFilePath) {
 
-        IfSqlParser parser = new SqlParser();
-        IfSqlParseResult result = parser.parse(sql);
-        if(!(result.getStatement() instanceof Select)) {
-            return null;
-        }
-        Select selectStatement = (Select)result.getStatement();
-
-        IfStatementVisitor finder = new TableNamesFindVisitor();
-        selectStatement.getSelectBody().accept(finder);
+        IfSqlParser parser = new SqlParser(new TableNamesFindVisitor());
+        IfSqlParseResult parseResult = parser.parse(sqlFilePath);
 
         IfStatementResultConverter converter = new StatementResultConverter();
-        tableNameList = converter.convertToTableNameList(finder.getStatementVisitResult());
-
-        return tableNameList;
-    }
-
-    public List<String> find(InputStream sqlInputStream) {
-
-        IfSqlParser parser = new SqlParser();
-        IfSqlParseResult result = parser.parse(sqlInputStream);
-        if(!(result.getStatement() instanceof Select)) {
-            return null;
-        }
-        Select selectStatement = (Select)result.getStatement();
-
-        IfStatementVisitor finder = new TableNamesFindVisitor();
-        selectStatement.getSelectBody().accept(finder);
-
-        IfStatementResultConverter converter = new StatementResultConverter();
-        tableNameList = converter.convertToTableNameList(finder.getStatementVisitResult());
-
-        return tableNameList;
+        IfSqlParseResultView view = converter.convertToTableNameList(parseResult);
+        view.output();
     }
 
 }

@@ -1,14 +1,15 @@
-package xyz.skycat.work.crudtool.parser.result;
+package xyz.skycat.work.crudtool.view;
 
-import net.sf.jsqlparser.statement.Statement;
 import xyz.skycat.work.crudtool.type.CrudTypeEnum;
 
 import java.util.List;
 
 /**
- * Created by SS on 2016/05/27.
+ * Created by SS on 2016/06/01.
  */
-public interface IfSqlParseResult {
+public interface IfSqlParseResultView {
+
+    void output();
 
     // TODO think. tablename(String) ? or Table ?
     List<String> getTableNameList();

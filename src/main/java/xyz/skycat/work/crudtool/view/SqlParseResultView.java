@@ -1,15 +1,14 @@
-package xyz.skycat.work.crudtool.parser.result;
+package xyz.skycat.work.crudtool.view;
 
-import net.sf.jsqlparser.statement.Statement;
 import xyz.skycat.work.crudtool.type.CrudTypeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by SS on 2016/05/27.
+ * Created by SS on 2016/06/01.
  */
-public class SqlParseResult implements IfSqlParseResult {
+public class SqlParseResultView implements IfSqlParseResultView {
 
     private List<String> tableNameList;
 
@@ -17,8 +16,14 @@ public class SqlParseResult implements IfSqlParseResult {
 
     private CrudTypeEnum crudType;
 
-    public SqlParseResult() {
+    public SqlParseResultView() {
         tableNameList = new ArrayList<>();
+    }
+
+    @Override
+    public void output() {
+        System.out.print(String.format("%s\t%s\n", sqlFileName, crudType.alias()));
+        tableNameList.stream().forEach(System.out::println);
     }
 
     @Override

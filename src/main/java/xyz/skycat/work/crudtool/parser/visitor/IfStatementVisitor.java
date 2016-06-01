@@ -1,4 +1,4 @@
-package xyz.skycat.work.crudtool.visitor;
+package xyz.skycat.work.crudtool.parser.visitor;
 
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
@@ -8,7 +8,7 @@ import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.*;
-import xyz.skycat.work.crudtool.visitor.result.IfStatementVisitResult;
+import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 
 /**
  * Created by SS on 2016/05/28.
@@ -16,7 +16,7 @@ import xyz.skycat.work.crudtool.visitor.result.IfStatementVisitResult;
 // TODO think! DELETE, INSERT, UPDATE, MERGE, etc?
 public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, ExpressionVisitor, ItemsListVisitor, IntoTableVisitor, OrderByVisitor {
 
-    public IfStatementVisitResult getStatementVisitResult();
+    public IfSqlParseResult getSqlParseResult();
 
     // by SelectVisitor
     @Override

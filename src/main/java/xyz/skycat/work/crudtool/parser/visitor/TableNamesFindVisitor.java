@@ -1,24 +1,24 @@
-package xyz.skycat.work.crudtool.visitor;
+package xyz.skycat.work.crudtool.parser.visitor;
 
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-import xyz.skycat.work.crudtool.visitor.result.IfStatementVisitResult;
-import xyz.skycat.work.crudtool.visitor.result.StatementVisitResult;
+import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
+import xyz.skycat.work.crudtool.parser.result.SqlParseResult;
 
 /**
  * Created by SS on 2016/05/28.
  */
 public class TableNamesFindVisitor implements IfStatementVisitor {
 
-    private IfStatementVisitResult statementVisitResult = null;
+    private IfSqlParseResult sqlParseResult = null;
 
     public TableNamesFindVisitor() {
-        statementVisitResult = new StatementVisitResult();
+        sqlParseResult = new SqlParseResult();
     }
 
     @Override
-    public IfStatementVisitResult getStatementVisitResult() {
-        return statementVisitResult;
+    public IfSqlParseResult getSqlParseResult() {
+        return sqlParseResult;
     }
 
     // by SelectVisitor
@@ -41,7 +41,7 @@ public class TableNamesFindVisitor implements IfStatementVisitor {
     // by IntoTableVisitor
     @Override
     public void visit(Table table) {
-        statementVisitResult.addTableName(table.getFullyQualifiedName());
+        sqlParseResult.addTableName(table.getFullyQualifiedName());
     }
 
 }
