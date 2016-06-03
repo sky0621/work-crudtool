@@ -22,6 +22,13 @@ public class SqlParseResultView implements IfSqlParseResultView {
 
     @Override
     public void output() {
+        if(sqlFileName==null){
+            System.out.println("sqlFileName is null.");
+        }
+        if(crudType==null){
+            System.out.println("crudType is null.");
+            return;
+        }
         System.out.print(String.format("%s\t%s\n", sqlFileName, crudType.alias()));
         tableNameList.stream().forEach(System.out::println);
     }

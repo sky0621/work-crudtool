@@ -1,13 +1,14 @@
 package xyz.skycat.work.crudtool.parser.visitor;
 
 import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.statement.select.*;
 import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.parser.result.SqlParseResult;
 
 /**
  * Created by SS on 2016/05/28.
  */
+// TODO Oops ! Already provided "TablesNamesFinder". So, this class is no use.
 public class TableNamesFindVisitor implements IfStatementVisitor {
 
     private IfSqlParseResult sqlParseResult = null;

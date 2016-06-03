@@ -14,14 +14,16 @@ import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
  * Created by SS on 2016/05/28.
  */
 // TODO think! DELETE, INSERT, UPDATE, MERGE, etc?
-public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, ExpressionVisitor, ItemsListVisitor, IntoTableVisitor, OrderByVisitor {
+public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, ExpressionVisitor, ItemsListVisitor, IntoTableVisitor, OrderByVisitor, PivotVisitor, SelectItemVisitor {
 
     public IfSqlParseResult getSqlParseResult();
 
     // by SelectVisitor
     @Override
     default public void visit(PlainSelect plainSelect) {
-        // TODO think common process
+        if(plainSelect.getWhere()!=null){
+            plainSelect.getWhere().accept(this);
+        }
     }
 
     // by SelectVisitor
@@ -430,6 +432,36 @@ public interface IfStatementVisitor extends SelectVisitor, FromItemVisitor, Expr
     @Override
     default public void visit(OrderByElement orderByElement) {
         // TODO think common process
+    }
+
+    // by PivotVisitor
+    @Override
+    default public void visit(Pivot pivot) {
+
+    }
+
+    // by PivotVisitor
+    @Override
+    default public void visit(PivotXml pivotXml) {
+
+    }
+
+    // by SelectItemVisitor
+    @Override
+    default public void visit(AllColumns allColumns) {
+
+    }
+
+    // by SelectItemVisitor
+    @Override
+    default public void visit(AllTableColumns allTableColumns) {
+
+    }
+
+    // by SelectItemVisitor
+    @Override
+    default public void visit(SelectExpressionItem selectExpressionItem) {
+
     }
 
     default public void visitBinaryExpression(BinaryExpression binaryExpression) {
