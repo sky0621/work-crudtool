@@ -5,12 +5,17 @@ import xyz.skycat.work.crudtool.facade.TableNamesFindFacade;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static javafx.scene.input.KeyCode.Z;
+
 /**
  * Created by SS on 2016/05/27.
  */
 public class Main {
     // Now, 3rd step.
     public static void main(String... args) {
+
+        System.out.println("<START>");
+
         // target search from args( is base directory name )
 
         // stream
@@ -22,7 +27,7 @@ public class Main {
         TableNamesFindFacade facade = new TableNamesFindFacade();
         facade.output1SqlFileCrud(sqlFilePath);
 
-        System.out.println("END");
+        System.out.println("<END>");
 
         // aggregate
 

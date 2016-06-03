@@ -55,19 +55,21 @@ public class SqlParser implements IfSqlParser {
         // TODO output1SqlFileCrud other way.
         List<String> tableList = null;
         if (stmt instanceof Select) {
-//            ((Select) stmt).getSelectBody().accept(statementVisitor);
             crudType = CrudTypeEnum.SELECT;
+//            ((Select) stmt).getSelectBody().accept(statementVisitor);
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
             tableList = tablesNamesFinder.getTableList((Select) stmt);
         }
         if (stmt instanceof Insert) {
+            crudType = CrudTypeEnum.INSERT;
             // FIXME PG.
-
         }
         if (stmt instanceof Update) {
+            crudType = CrudTypeEnum.UPDATE;
             // FIXME PG.
         }
         if (stmt instanceof Delete) {
+            crudType = CrudTypeEnum.DELETE;
             // FIXME PG.
         }
 
