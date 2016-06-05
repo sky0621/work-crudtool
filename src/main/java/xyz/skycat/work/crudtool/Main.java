@@ -6,8 +6,6 @@ import xyz.skycat.work.crudtool.facade.TableNamesFindFacade;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static javafx.scene.input.KeyCode.Z;
-
 /**
  * Created by SS on 2016/05/27.
  */
@@ -25,8 +23,8 @@ public class Main {
         String testSqlFileName = args[0];
         Path sqlFilePath = Paths.get(testSqlFileName).toAbsolutePath();
 
-        IfCrudParseFacade facade = new TableNamesFindFacade(sqlFilePath);
-        facade.parseProcess();
+        IfCrudParseFacade facade = new TableNamesFindFacade();
+        facade.parseProcess(sqlFilePath);
 
         System.out.println("<END>");
 

@@ -14,19 +14,17 @@ import java.nio.file.Path;
  */
 public class AbstractCrudParseFacade implements IfCrudParseFacade {
 
-    private Path sqlFilePath;
     private IfStatementVisitor statementVisitor;    // For parse file.
     private IfStatementResultConverter viewConverter;   // For convert parseresult to viewresult.
 
-    public AbstractCrudParseFacade(Path sqlFilePath, IfStatementVisitor statementVisitor, IfStatementResultConverter viewConverter) {
+    public AbstractCrudParseFacade(IfStatementVisitor statementVisitor, IfStatementResultConverter viewConverter) {
 
-        this.sqlFilePath = sqlFilePath;
         this.statementVisitor = statementVisitor;
         this.viewConverter = viewConverter;
     }
 
     @Override
-    public void parseProcess() {
+    public void parseProcess(Path sqlFilePath) {
 
         IfSqlParser parser = SqlParserFactory.createSqlParser(statementVisitor);
         IfSqlParseResult parseResult = parser.parse(sqlFilePath);
