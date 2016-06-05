@@ -5,6 +5,7 @@ import xyz.skycat.work.crudtool.converter.IfStatementResultConverter;
 import xyz.skycat.work.crudtool.converter.StatementResultConverter;
 import xyz.skycat.work.crudtool.parser.IfSqlParser;
 import xyz.skycat.work.crudtool.parser.SqlParser;
+import xyz.skycat.work.crudtool.parser.factory.SqlParserFactory;
 import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.parser.visitor.IfStatementVisitor;
 import xyz.skycat.work.crudtool.parser.visitor.TableNamesFindVisitor;
@@ -30,9 +31,10 @@ public class TableNamesFindFacade {
         tableNameList = new ArrayList<>();
     }
 
+    // TODO think! good name.
     public void output1SqlFileCrud(Path sqlFilePath) {
 
-        IfSqlParser parser = new SqlParser(new TableNamesFindVisitor());
+        IfSqlParser parser = SqlParserFactory.createSqlParser(new TableNamesFindVisitor());
         IfSqlParseResult parseResult = parser.parse(sqlFilePath);
 
         IfStatementResultConverter converter = new StatementResultConverter();
