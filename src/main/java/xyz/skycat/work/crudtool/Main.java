@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool;
 
+import xyz.skycat.work.crudtool.facade.IfCrudParseFacade;
 import xyz.skycat.work.crudtool.facade.TableNamesFindFacade;
 
 import java.nio.file.Path;
@@ -24,8 +25,8 @@ public class Main {
         String testSqlFileName = args[0];
         Path sqlFilePath = Paths.get(testSqlFileName).toAbsolutePath();
 
-        TableNamesFindFacade facade = new TableNamesFindFacade();
-        facade.output1SqlFileCrud(sqlFilePath);
+        IfCrudParseFacade facade = new TableNamesFindFacade(sqlFilePath);
+        facade.parseProcess();
 
         System.out.println("<END>");
 

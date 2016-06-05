@@ -19,6 +19,6 @@ public interface IfStatementResultConverter {
 
     // YAGNI ?
 
-    IfSqlParseResultView convertToTableNameList(IfSqlParseResult sqlParseResult);
+    IfSqlParseResultView convert(IfSqlParseResult sqlParseResult);
 
 }

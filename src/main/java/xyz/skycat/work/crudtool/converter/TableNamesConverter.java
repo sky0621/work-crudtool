@@ -4,16 +4,13 @@ import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.view.IfSqlParseResultView;
 import xyz.skycat.work.crudtool.view.SqlParseResultView;
 
-import java.util.List;
-
 /**
- * Created by SS on 2016/06/01.
+ * Created by SS on 2016/06/06.
  */
-// TODO think! To do Static class?
-public class StatementResultConverter implements IfStatementResultConverter {
+public class TableNamesConverter implements IfStatementResultConverter {
 
     @Override
-    public IfSqlParseResultView convertToTableNameList(IfSqlParseResult sqlParseResult) {
+    public IfSqlParseResultView convert(IfSqlParseResult sqlParseResult) {
         // TODO think! Ummmmm. just DTO...
         IfSqlParseResultView view = new SqlParseResultView();
         view.setCrudType(sqlParseResult.getCrudType());
