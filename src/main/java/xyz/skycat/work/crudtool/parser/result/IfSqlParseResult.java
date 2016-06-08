@@ -1,28 +1,22 @@
 package xyz.skycat.work.crudtool.parser.result;
 
-import net.sf.jsqlparser.statement.Statement;
 import xyz.skycat.work.crudtool.type.CrudTypeEnum;
-
-import java.util.List;
 
 /**
  * Created by SS on 2016/05/27.
  */
 public interface IfSqlParseResult {
 
-    // TODO think. tablename(String) ? or Table ?
-    List<String> getTableNameList();
+    public void setSqlFileName(String sqlFileName);
 
-    void setTableNameList(List<String> tableNameList);
+    public String getSqlFileName();
 
-    void addTableName(String tableName);
+    public void setCrudType(CrudTypeEnum crudType);
 
-    void setSqlFileName(String sqlFileName);
+    public CrudTypeEnum getCrudType();
 
-    String getSqlFileName();
+    public void setResult(Object result);
 
-    void setCrudType(CrudTypeEnum crudType);
-
-    CrudTypeEnum getCrudType();
+    public Object getResult();
 
 }

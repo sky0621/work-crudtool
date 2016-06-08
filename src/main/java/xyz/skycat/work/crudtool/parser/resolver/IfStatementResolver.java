@@ -8,7 +8,10 @@ import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
  */
 public interface IfStatementResolver {
 
-    public boolean isTarget(Statement statement);
+    public default boolean isTarget(Statement statement) {
+
+        return true;
+    }
 
     public IfSqlParseResult resolve(Statement statement);
 

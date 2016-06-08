@@ -10,19 +10,21 @@ import java.util.Optional;
 /**
  * Created by SS on 2016/06/08.
  */
-public class StatementResolvers {
+public class StatementResolverComposite implements IfStatementResolver {
 
     private List<IfStatementResolver> statementResolvers = null;
 
-    public StatementResolvers() {
+    public StatementResolverComposite() {
 
         statementResolvers = new ArrayList<>();
-        statementResolvers.add(new SelectStatementResolver());
-        statementResolvers.add(new InsertStatementResolver());
-        statementResolvers.add(new UpdateStatementResolver());
-        statementResolvers.add(new DeleteStatementResolver());
     }
 
+    protected void addStatementResolvers(IfStatementResolver statementResolver) {
+
+        statementResolvers.add(statementResolver);
+    }
+
+    @Override
     public IfSqlParseResult resolve(Statement statement) {
 
         Optional<IfStatementResolver> resolverOptional = statementResolvers.parallelStream().filter(st -> st.isTarget(statement)).findFirst();

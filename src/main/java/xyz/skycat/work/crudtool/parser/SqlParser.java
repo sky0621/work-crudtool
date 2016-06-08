@@ -3,9 +3,8 @@ package xyz.skycat.work.crudtool.parser;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
-import xyz.skycat.work.crudtool.parser.resolver.StatementResolvers;
-import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
-import xyz.skycat.work.crudtool.parser.visitor.IfStatementVisitor;
+import xyz.skycat.work.crudtool.parser.statement.IfStatementWrapper;
+import xyz.skycat.work.crudtool.parser.statement.StatementWrapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +16,9 @@ import java.nio.file.Path;
  */
 public class SqlParser implements IfSqlParser {
 
-    private IfStatementVisitor statementVisitor;
-
-    public SqlParser(IfStatementVisitor visitor) {
-        statementVisitor = visitor;
-    }
-
     // wrap JSqlParser and Statement.
     @Override
-    public IfSqlParseResult parse(Path sqlFilePath) {
+    public IfStatementWrapper parse(Path sqlFilePath) {
         InputStream sqlInputStream = null;
         try {
             sqlInputStream = Files.newInputStream(sqlFilePath);
@@ -43,10 +36,7 @@ public class SqlParser implements IfSqlParser {
             return null;
         }
 
-        IfSqlParseResult parseResult = new StatementResolvers().resolve(stmt);
-        parseResult.setSqlFileName(sqlFilePath.getFileName().toString());
-
-        return parseResult;
+        return new StatementWrapper().set(stmt);
     }
 
 }

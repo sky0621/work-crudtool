@@ -4,10 +4,12 @@ import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.view.IfSqlParseResultView;
 import xyz.skycat.work.crudtool.view.SqlParseResultView;
 
+import java.util.List;
+
 /**
  * Created by SS on 2016/06/06.
  */
-public class TableNamesConverter implements IfStatementResultConverter {
+public class TableNamesFindConverter implements IfStatementResultConverter {
 
     @Override
     public IfSqlParseResultView convert(IfSqlParseResult sqlParseResult) {
@@ -15,7 +17,7 @@ public class TableNamesConverter implements IfStatementResultConverter {
         IfSqlParseResultView view = new SqlParseResultView();
         view.setCrudType(sqlParseResult.getCrudType());
         view.setSqlFileName(sqlParseResult.getSqlFileName());
-        view.setTableNameList(sqlParseResult.getTableNameList());
+        view.setTableNameList((List<String>) sqlParseResult.getResult());
         return view;
     }
 

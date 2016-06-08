@@ -1,9 +1,7 @@
 package xyz.skycat.work.crudtool.parser;
 
-import xyz.skycat.work.crudtool.parser.result.IfSqlParseResult;
+import xyz.skycat.work.crudtool.parser.statement.IfStatementWrapper;
 
-import java.io.File;
-import java.io.InputStream;
 import java.nio.file.Path;
 
 /**
@@ -11,6 +9,6 @@ import java.nio.file.Path;
  */
 public interface IfSqlParser {
 
-    IfSqlParseResult parse(Path sqlFilePath);
+    IfStatementWrapper parse(Path sqlFilePath);
 
 }

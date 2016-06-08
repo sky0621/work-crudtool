@@ -1,6 +1,7 @@
 package xyz.skycat.work.crudtool.facade;
 
-import xyz.skycat.work.crudtool.converter.TableNamesConverter;
+import xyz.skycat.work.crudtool.converter.TableNamesFindConverter;
+import xyz.skycat.work.crudtool.parser.resolver.TableNamesFindResolver;
 import xyz.skycat.work.crudtool.parser.visitor.TableNamesFindVisitor;
 
 /**
@@ -11,7 +12,7 @@ public class TableNamesFindFacade extends AbstractCrudParseFacade {
 
     public TableNamesFindFacade() {
 
-        super(new TableNamesFindVisitor(), new TableNamesConverter());
+        super(new TableNamesFindVisitor(), new TableNamesFindResolver(), new TableNamesFindConverter());
     }
 
 }
