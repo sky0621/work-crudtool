@@ -33,6 +33,11 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
         IfSqlParser parser = SqlParserFactory.createSqlParser();
         IfStatementWrapper statementWrapper = parser.parse(sqlFilePath);
         IfSqlParseResult parseResult = statementResolver.resolve(statementWrapper.get());
+        if (parseResult == null) {
+            // TODO error handling.
+            System.out.println("<<< PARSE FAILURE : " + sqlFilePath.getFileName().toString());
+            return;
+        }
         parseResult.setSqlFileName(sqlFilePath.getFileName().toString());   // TODO Muuuuu...
         IfSqlParseResultView view = viewConverter.convert(parseResult);
         view.output();
