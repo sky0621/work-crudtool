@@ -1,6 +1,6 @@
 package xyz.skycat.work.crudtool.facade.sqlparser;
 
-import xyz.skycat.work.crudtool.old.old.old.parser.statement.IfStatementWrapper;
+import xyz.skycat.work.crudtool.facade.statement.IfStatementWrapper;
 
 import java.nio.file.Path;
 

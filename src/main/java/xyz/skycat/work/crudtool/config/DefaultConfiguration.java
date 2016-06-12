@@ -10,6 +10,7 @@ public class DefaultConfiguration implements IfConfiguration {
 
     @Override
     public IfCrudMakeFacade buildFacade() {
+
         return new TableCrudMakeFacade();
     }
 
