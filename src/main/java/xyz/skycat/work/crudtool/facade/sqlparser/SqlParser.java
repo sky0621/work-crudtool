@@ -3,6 +3,7 @@ package xyz.skycat.work.crudtool.facade.sqlparser;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
+import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.statement.IfStatementWrapper;
 import xyz.skycat.work.crudtool.facade.statement.StatementWrapper;
 
@@ -18,27 +19,25 @@ public class SqlParser implements IfSqlParser {
 
     // wrap JSqlParser and Statement.
     @Override
-    public IfStatementWrapper parse(Path sqlFilePath) {
+    public IfStatementWrapper parse(Path sqlFilePath) throws CrudMakeException {
 
         InputStream sqlInputStream = null;
         try {
             sqlInputStream = Files.newInputStream(sqlFilePath);
         } catch (IOException e) {
-            // TODO error handling.
-            e.printStackTrace();
-            return null;
+            // TODO log
+            throw new CrudMakeException(e);
         }
 
         Statement stmt = null;
         try {
             stmt = CCJSqlParserUtil.parse(sqlInputStream);
         } catch (JSQLParserException e) {
-            // TODO error handling.
-            e.printStackTrace();
-            return null;
+            // TODO log
+            throw new CrudMakeException(e);
         }
 
-        return new StatementWrapper().set(stmt);
+        return new StatementWrapper(stmt);
     }
 
 }

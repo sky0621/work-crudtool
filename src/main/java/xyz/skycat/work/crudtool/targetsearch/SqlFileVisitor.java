@@ -35,7 +35,7 @@ public class SqlFileVisitor implements FileVisitor<Path> {
         try {
             facade.parseProcess(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return FileVisitResult.CONTINUE;
     }

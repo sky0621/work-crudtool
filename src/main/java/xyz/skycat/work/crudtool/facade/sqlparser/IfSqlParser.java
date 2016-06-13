@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.facade.sqlparser;
 
+import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.statement.IfStatementWrapper;
 
 import java.nio.file.Path;
@@ -9,6 +10,6 @@ import java.nio.file.Path;
  */
 public interface IfSqlParser {
 
-    IfStatementWrapper parse(Path sqlFilePath);
+    IfStatementWrapper parse(Path sqlFilePath) throws CrudMakeException;
 
 }

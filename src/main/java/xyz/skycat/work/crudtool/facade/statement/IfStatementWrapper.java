@@ -7,8 +7,6 @@ import net.sf.jsqlparser.statement.Statement;
  */
 public interface IfStatementWrapper {
 
-    public IfStatementWrapper set(Statement statement);
-
     public Statement get();
 
 }

@@ -1,6 +1,7 @@
 package xyz.skycat.work.crudtool.facade.statement.resolver;
 
 import net.sf.jsqlparser.statement.Statement;
+import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
 
 /**
@@ -13,6 +14,6 @@ public interface IfStatementResolver {
         return true;
     }
 
-    public IfSqlParseResult resolve(Statement statement);
+    public IfSqlParseResult resolve(Statement statement) throws CrudMakeException;
 
 }

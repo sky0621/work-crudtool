@@ -9,11 +9,9 @@ public class StatementWrapper implements IfStatementWrapper {
 
     private Statement statement;
 
-    @Override
-    public IfStatementWrapper set(Statement statement) {
+    public StatementWrapper(Statement statement) {
 
         this.statement = statement;
-        return this;
     }
 
     @Override

@@ -2,7 +2,7 @@
 
 ## growing up process ... Not Test1st. Oops.
 
-### 1st SQL string parse -> get TableName List
+### 1st SQL string parse (READ only) -> get TableName List
 
 ### 2nd SQL file parse -> mapping { key: SQL file name, value: TableName List }
 
@@ -14,7 +14,7 @@
 
 ### 6th Service class name -> Service class name AND method name
 
-### 7th .....
+### 7th Treat other DML(INSERT, UPDATE, DELETE)
 
   .
   .

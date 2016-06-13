@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.facade.view;
 
+import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
 
 import java.util.ArrayList;
@@ -21,14 +22,12 @@ public class SqlParseResultView implements IfSqlParseResultView {
     }
 
     @Override
-    public void output() {
+    public void output() throws CrudMakeException {
         if (sqlFileName == null) {
-            System.out.println("sqlFileName is null.");
-            return;
+            throw new CrudMakeException(new IllegalArgumentException("sqlFileName is null"));
         }
         if (crudType == null) {
-            System.out.println("crudType is null.");
-            return;
+            throw new CrudMakeException(new IllegalArgumentException("crudType is null"));
         }
         System.out.print(String.format("%s\t%s\n", sqlFileName, crudType.alias()));
         tableNameList.stream().forEach(System.out::println);

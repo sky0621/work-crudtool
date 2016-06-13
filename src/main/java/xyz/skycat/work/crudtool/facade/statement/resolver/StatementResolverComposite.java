@@ -1,6 +1,7 @@
 package xyz.skycat.work.crudtool.facade.statement.resolver;
 
 import net.sf.jsqlparser.statement.Statement;
+import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
 
 import java.util.ArrayList;
@@ -25,10 +26,10 @@ public class StatementResolverComposite implements IfStatementResolver {
     }
 
     @Override
-    public IfSqlParseResult resolve(Statement statement) {
+    public IfSqlParseResult resolve(Statement statement) throws CrudMakeException {
 
         Optional<IfStatementResolver> resolverOptional = statementResolvers.parallelStream().filter(st -> st.isTarget(statement)).findFirst();
-        IfStatementResolver resolver = resolverOptional.orElseThrow(() -> new IllegalArgumentException()); // TODO think! make original exception.
+        IfStatementResolver resolver = resolverOptional.orElseThrow(() -> new CrudMakeException("StatementResolve error occured"));
         return resolver.resolve(statement);
     }
 

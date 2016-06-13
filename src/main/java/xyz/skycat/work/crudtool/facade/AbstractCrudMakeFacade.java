@@ -1,6 +1,7 @@
 package xyz.skycat.work.crudtool.facade;
 
 import xyz.skycat.work.crudtool.facade.converter.IfStatementResultConverter;
+import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.factory.SqlParserFactory;
 import xyz.skycat.work.crudtool.facade.sqlparser.IfSqlParser;
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
@@ -28,15 +29,19 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
     }
 
     @Override
-    public void parseProcess(Path sqlFilePath) {
+    public void parseProcess(Path sqlFilePath) throws CrudMakeException {
+
+        if (sqlFilePath == null) {
+            // TODO log
+            throw new CrudMakeException(new IllegalArgumentException("sqlFilePath is null"));
+        }
 
         IfSqlParser parser = SqlParserFactory.createSqlParser();
         IfStatementWrapper statementWrapper = parser.parse(sqlFilePath);
         IfSqlParseResult parseResult = statementResolver.resolve(statementWrapper.get());
         if (parseResult == null) {
-            // TODO error handling.
-            System.out.println("<<< PARSE FAILURE : " + sqlFilePath.getFileName().toString());
-            return;
+            // TODO log
+            throw new CrudMakeException("SqlParseResult is null", sqlFilePath);
         }
         parseResult.setSqlFileName(sqlFilePath.getFileName().toString());   // TODO Muuuuu...
         IfSqlParseResultView view = viewConverter.convert(parseResult);
