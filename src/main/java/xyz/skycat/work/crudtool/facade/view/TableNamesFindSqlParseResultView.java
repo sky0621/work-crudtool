@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by SS on 2016/06/01.
  */
-public class SqlParseResultView implements IfSqlParseResultView {
+public class TableNamesFindSqlParseResultView implements IfSqlParseResultView {
 
     private List<String> tableNameList;
 
@@ -17,7 +17,7 @@ public class SqlParseResultView implements IfSqlParseResultView {
 
     private CrudTypeEnum crudType;
 
-    public SqlParseResultView() {
+    public TableNamesFindSqlParseResultView() {
         tableNameList = new ArrayList<>();
     }
 
@@ -29,8 +29,15 @@ public class SqlParseResultView implements IfSqlParseResultView {
         if (crudType == null) {
             throw new CrudMakeException(new IllegalArgumentException("crudType is null"));
         }
-        System.out.print(String.format("%s\t%s\n", sqlFileName, crudType.alias()));
-        tableNameList.stream().forEach(System.out::println);
+        System.out.print(String.format("%s\t", sqlFileName));
+        tableNameList.stream().forEachOrdered(tableName -> {
+            System.out.print(String.format("%s\t", tableName));
+        });
+        System.out.print("\n");
+        tableNameList.stream().forEachOrdered(tableName -> {
+            System.out.print(String.format("\t%s", crudType.alias()));
+        });
+        System.out.print("\n");
     }
 
     @Override

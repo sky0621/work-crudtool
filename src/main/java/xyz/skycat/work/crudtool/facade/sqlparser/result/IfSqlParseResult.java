@@ -2,12 +2,14 @@ package xyz.skycat.work.crudtool.facade.sqlparser.result;
 
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
 
+import java.nio.file.Path;
+
 /**
  * Created by SS on 2016/05/27.
  */
 public interface IfSqlParseResult {
 
-    public void setSqlFileName(String sqlFileName);
+    public void setSqlFileName(Path sqlFilePath);
 
     public String getSqlFileName();
 

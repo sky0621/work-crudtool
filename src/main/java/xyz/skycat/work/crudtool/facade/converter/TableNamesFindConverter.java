@@ -2,7 +2,7 @@ package xyz.skycat.work.crudtool.facade.converter;
 
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
 import xyz.skycat.work.crudtool.facade.view.IfSqlParseResultView;
-import xyz.skycat.work.crudtool.facade.view.SqlParseResultView;
+import xyz.skycat.work.crudtool.facade.view.TableNamesFindSqlParseResultView;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class TableNamesFindConverter implements IfStatementResultConverter {
     public IfSqlParseResultView convert(IfSqlParseResult sqlParseResult) {
 
         // TODO think! Ummmmm. just DTO...
-        IfSqlParseResultView view = new SqlParseResultView();
+        IfSqlParseResultView view = new TableNamesFindSqlParseResultView();
         view.setCrudType(sqlParseResult.getCrudType());
         view.setSqlFileName(sqlParseResult.getSqlFileName());
         view.setTableNameList((List<String>) sqlParseResult.getResult());

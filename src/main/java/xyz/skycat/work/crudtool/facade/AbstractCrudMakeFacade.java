@@ -43,7 +43,7 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
             // TODO log
             throw new CrudMakeException("SqlParseResult is null", sqlFilePath);
         }
-        parseResult.setSqlFileName(sqlFilePath.getFileName().toString());   // TODO Muuuuu...
+        parseResult.setSqlFileName(sqlFilePath);   // TODO Muuuuu...
         IfSqlParseResultView view = viewConverter.convert(parseResult);
         view.output();
     }

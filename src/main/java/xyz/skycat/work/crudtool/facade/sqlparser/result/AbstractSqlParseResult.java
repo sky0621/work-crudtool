@@ -2,6 +2,8 @@ package xyz.skycat.work.crudtool.facade.sqlparser.result;
 
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
 
+import java.nio.file.Path;
+
 /**
  * Created by SS on 2016/05/27.
  */
@@ -12,8 +14,8 @@ public abstract class AbstractSqlParseResult implements IfSqlParseResult {
     private CrudTypeEnum crudType;
 
     @Override
-    public void setSqlFileName(String sqlFileName) {
-        this.sqlFileName = sqlFileName;
+    public void setSqlFileName(Path sqlFilePath) {
+        this.sqlFileName = sqlFilePath.normalize().toAbsolutePath().toString();
     }
 
     @Override
