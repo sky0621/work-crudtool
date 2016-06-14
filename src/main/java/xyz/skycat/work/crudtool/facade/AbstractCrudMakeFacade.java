@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.facade;
 
+import xyz.skycat.work.crudtool.enums.FunctionKind;
 import xyz.skycat.work.crudtool.facade.converter.IfStatementResultConverter;
 import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.factory.SqlParserFactory;
@@ -9,6 +10,7 @@ import xyz.skycat.work.crudtool.facade.statement.IfStatementWrapper;
 import xyz.skycat.work.crudtool.facade.statement.resolver.IfStatementResolver;
 import xyz.skycat.work.crudtool.facade.statement.visitor.IfStatementVisitor;
 import xyz.skycat.work.crudtool.facade.view.IfSqlParseResultView;
+import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 
 import java.nio.file.Path;
 
@@ -20,12 +22,22 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
     private IfStatementVisitor statementVisitor;    // For parse file. Now, no use.
     private IfStatementResolver statementResolver;  // For resolve statement.
     private IfStatementResultConverter viewConverter;   // For convert parseresult to viewresult.
+    private IfCrudOutputer crudOutputer;    // For provide output way. [console? or tsv? or ...]
 
-    public AbstractCrudMakeFacade(IfStatementVisitor statementVisitor, IfStatementResolver statementResolver, IfStatementResultConverter viewConverter) {
+    public AbstractCrudMakeFacade(FunctionKind func, IfCrudOutputer outputer) throws CrudMakeException {
 
-        this.statementVisitor = statementVisitor;
-        this.statementResolver = statementResolver;
-        this.viewConverter = viewConverter;
+        try {
+            // dirty...
+            statementVisitor = (IfStatementVisitor) (clz(func, ".statement.visitor.", "StatementVisitor")).newInstance();
+            statementResolver = (IfStatementResolver) (clz(func, ".statement.resolver.", "Resolver")).newInstance();
+            viewConverter = (IfStatementResultConverter) (clz(func, ".converter.", "Converter")).newInstance();
+
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            // TODO log
+            throw new CrudMakeException(e);
+        }
+
+        crudOutputer = outputer;
     }
 
     @Override
@@ -45,7 +57,13 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
         }
         parseResult.setSqlFileName(sqlFilePath);   // TODO Muuuuu...
         IfSqlParseResultView view = viewConverter.convert(parseResult);
-        view.output();
+        view.output(crudOutputer);
+    }
+
+    private Class clz(FunctionKind func, String subPackage, String suffix) throws ClassNotFoundException {
+
+        String className = getClass().getPackage().getName() + subPackage + func.n() + suffix;
+        return Class.forName(className);
     }
 
 }

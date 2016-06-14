@@ -2,6 +2,7 @@ package xyz.skycat.work.crudtool.facade.view;
 
 import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
+import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,35 +23,29 @@ public class TableNamesFindSqlParseResultView implements IfSqlParseResultView {
     }
 
     @Override
-    public void output() throws CrudMakeException {
+    public void output(IfCrudOutputer outputer) throws CrudMakeException {
+
         if (sqlFileName == null) {
             throw new CrudMakeException(new IllegalArgumentException("sqlFileName is null"));
         }
         if (crudType == null) {
             throw new CrudMakeException(new IllegalArgumentException("crudType is null"));
         }
-        System.out.print(String.format("%s\t", sqlFileName));
-        tableNameList.stream().forEachOrdered(tableName -> {
-            System.out.print(String.format("%s\t", tableName));
-        });
-        System.out.print("\n");
-        tableNameList.stream().forEachOrdered(tableName -> {
-            System.out.print(String.format("\t%s", crudType.alias()));
-        });
-        System.out.print("\n");
+
+        outputer.setSqlFileName(sqlFileName);
+        outputer.setCrudType(crudType);
+        outputer.setStreamData(tableNameList.stream());
+        outputer.output();
     }
 
-    @Override
     public List<String> getTableNameList() {
         return tableNameList;
     }
 
-    @Override
     public void setTableNameList(List<String> tableNameList) {
         this.tableNameList = tableNameList;
     }
 
-    @Override
     public void addTableName(String tableName) {
         tableNameList.add(tableName);
     }

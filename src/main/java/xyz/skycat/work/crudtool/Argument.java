@@ -10,7 +10,7 @@ public class Argument {
 
     public static Path parse(String... args) {
 
-        // FIXME various check!
+        // TODO various check!
 
         return Paths.get(args[0]).toAbsolutePath();
     }

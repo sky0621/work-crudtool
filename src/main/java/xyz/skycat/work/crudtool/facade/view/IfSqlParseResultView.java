@@ -2,6 +2,7 @@ package xyz.skycat.work.crudtool.facade.view;
 
 import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
+import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 
 import java.util.List;
 
@@ -10,14 +11,7 @@ import java.util.List;
  */
 public interface IfSqlParseResultView {
 
-    void output() throws CrudMakeException;
-
-    // TODO think. tablename(String) ? or Table ?
-    List<String> getTableNameList();
-
-    void setTableNameList(List<String> tableNameList);
-
-    void addTableName(String tableName);
+    void output(IfCrudOutputer outputer) throws CrudMakeException;
 
     void setSqlFileName(String sqlFileName);
 

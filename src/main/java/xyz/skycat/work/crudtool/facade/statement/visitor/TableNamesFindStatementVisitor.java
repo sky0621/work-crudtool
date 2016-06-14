@@ -11,11 +11,11 @@ import java.util.List;
  * Created by SS on 2016/05/28.
  */
 // TODO Oops ! Already provided "TablesNamesFinder". So, this class is no use.
-public class TableNamesFindVisitor implements IfStatementVisitor {
+public class TableNamesFindStatementVisitor implements IfStatementVisitor {
 
     private IfSqlParseResult sqlParseResult = null;
 
-    public TableNamesFindVisitor() {
+    public TableNamesFindStatementVisitor() {
         sqlParseResult = new TableNamesFindSqlParseResult();
     }
 

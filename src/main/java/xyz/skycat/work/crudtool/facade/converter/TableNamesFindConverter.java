@@ -14,8 +14,7 @@ public class TableNamesFindConverter implements IfStatementResultConverter {
     @Override
     public IfSqlParseResultView convert(IfSqlParseResult sqlParseResult) {
 
-        // TODO think! Ummmmm. just DTO...
-        IfSqlParseResultView view = new TableNamesFindSqlParseResultView();
+        TableNamesFindSqlParseResultView view = new TableNamesFindSqlParseResultView();
         view.setCrudType(sqlParseResult.getCrudType());
         view.setSqlFileName(sqlParseResult.getSqlFileName());
         view.setTableNameList((List<String>) sqlParseResult.getResult());
