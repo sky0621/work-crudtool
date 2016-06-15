@@ -24,6 +24,7 @@ public class DefaultConfiguration implements IfConfiguration {
     @Override
     public IfCrudMakeFacade buildFacade() throws CrudMakeException {
 
+        setup();
         return new TableCrudMakeFacade(this.outputer);
     }
 
