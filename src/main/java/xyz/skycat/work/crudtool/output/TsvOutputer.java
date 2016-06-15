@@ -1,47 +1,49 @@
 package xyz.skycat.work.crudtool.output;
 
-import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
-
-import java.util.stream.Stream;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Created by SS on 2016/06/15.
  */
-public class TsvOutputer implements IfCrudOutputer {
+public class TsvOutputer extends AbstractCrudOutputer {
+
+    private Path outputFilePath;
+
+    public TsvOutputer(Path outputFilePath) {
+
+        this.outputFilePath = outputFilePath;
+        try {
+            Files.deleteIfExists(this.outputFilePath);
+            Files.createFile(this.outputFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void output() {
 
-    }
+        try (BufferedWriter writer = Files.newBufferedWriter(outputFilePath, StandardOpenOption.APPEND)) {
 
-    @Override
-    public void setSqlFileName(String sqlFileName) {
-
-    }
-
-    @Override
-    public String getSqlFileName() {
-        return null;
-    }
-
-    @Override
-    public void setCrudType(CrudTypeEnum crudType) {
-
-    }
-
-    @Override
-    public CrudTypeEnum getCrudType() {
-        return null;
-    }
-
-    @Override
-    public void setStreamData(Stream strm) {
-
-    }
-
-    @Override
-    public Stream getStreamData() {
-        return null;
+            writer.write(String.format("%s\t", getSqlFileName()));
+            getStreamData().forEach(tableName -> {
+                try {
+                    writer.write(String.format("%s(%s)\t", tableName, getCrudType().alias()));
+                } catch (IOException e) {
+                    // TODO エラーハンドリング！
+                    e.printStackTrace();
+                }
+            });
+            writer.write("\n");
+            writer.flush();
+        } catch (IOException e) {
+            // TODO エラーハンドリング！
+            e.printStackTrace();
+        }
     }
 
 }
