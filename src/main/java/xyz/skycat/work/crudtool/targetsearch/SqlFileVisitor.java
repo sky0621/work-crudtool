@@ -33,6 +33,22 @@ public class SqlFileVisitor implements FileVisitor<Path> {
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
         try {
+            // ---- |
+            // FIXME try
+            try {
+                Path par = file.getParent();
+                String ts = file.toString();
+                String basePath = "C:\\FHS\\usr\\local\\work.crudtool\\sql";
+                int len = basePath.length();
+                String ts2 = ts.substring(len + 1);
+                // Visitor in Visitor ?
+
+                // sql <- service ...... search by using "Throwable"
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // ---- |
+
             facade.parseProcess(file);
         } catch (Exception e) {
             System.out.println(e.getMessage());
