@@ -3,7 +3,7 @@ package xyz.skycat.work.crudtool;
 import xyz.skycat.work.crudtool.config.DefaultConfiguration;
 import xyz.skycat.work.crudtool.config.IfConfiguration;
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.targetsearch.SqlFileVisitor;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package xyz.skycat.work.crudtool.facade.view;
 
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
 import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 

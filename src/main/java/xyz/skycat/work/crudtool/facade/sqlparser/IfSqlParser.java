@@ -1,6 +1,6 @@
 package xyz.skycat.work.crudtool.facade.sqlparser;
 
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.statement.IfStatementWrapper;
 
 import java.nio.file.Path;

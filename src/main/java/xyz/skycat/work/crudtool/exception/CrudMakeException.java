@@ -1,4 +1,4 @@
-package xyz.skycat.work.crudtool.facade.exception;
+package xyz.skycat.work.crudtool.exception;
 
 import java.nio.file.Path;
 

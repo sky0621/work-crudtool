@@ -2,7 +2,7 @@ package xyz.skycat.work.crudtool.facade;
 
 import xyz.skycat.work.crudtool.enums.FunctionKind;
 import xyz.skycat.work.crudtool.facade.converter.IfStatementResultConverter;
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.factory.SqlParserFactory;
 import xyz.skycat.work.crudtool.facade.sqlparser.IfSqlParser;
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;

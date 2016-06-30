@@ -1,6 +1,6 @@
 package xyz.skycat.work.crudtool.facade;
 
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 
 import java.nio.file.Path;
 

@@ -3,7 +3,7 @@ package xyz.skycat.work.crudtool.facade.sqlparser;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.statement.IfStatementWrapper;
 import xyz.skycat.work.crudtool.facade.statement.StatementWrapper;
 

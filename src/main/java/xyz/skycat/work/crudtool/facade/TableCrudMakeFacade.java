@@ -1,7 +1,7 @@
 package xyz.skycat.work.crudtool.facade;
 
 import xyz.skycat.work.crudtool.enums.FunctionKind;
-import xyz.skycat.work.crudtool.facade.exception.CrudMakeException;
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 
 /**
