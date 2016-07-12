@@ -9,8 +9,6 @@ import xyz.skycat.work.crudtool.output.IfCrudOutputer;
  */
 public interface IfSqlParseResultView {
 
-    void output(IfCrudOutputer outputer) throws CrudMakeException;
-
     void setSqlFileName(String sqlFileName);
 
     String getSqlFileName();

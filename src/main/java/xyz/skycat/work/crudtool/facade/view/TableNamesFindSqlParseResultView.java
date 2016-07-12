@@ -22,22 +22,6 @@ public class TableNamesFindSqlParseResultView implements IfSqlParseResultView {
         tableNameList = new ArrayList<>();
     }
 
-    @Override
-    public void output(IfCrudOutputer outputer) throws CrudMakeException {
-
-        if (sqlFileName == null) {
-            throw new CrudMakeException("SQLファイルパスが渡されていません。");
-        }
-        if (crudType == null) {
-            throw new CrudMakeException("CRUDタイプが渡されていません。");
-        }
-
-        outputer.setSqlFileName(sqlFileName);
-        outputer.setCrudType(crudType);
-        outputer.setStreamData(tableNameList.stream());
-        outputer.output();
-    }
-
     public List<String> getTableNameList() {
         return tableNameList;
     }

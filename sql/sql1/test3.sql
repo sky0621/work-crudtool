@@ -1,4 +1,4 @@
 select * from third_table
 where
   exists( select 1
-    from exitable where name = 'aaa')
+    from mst_item where name = 'aaa')

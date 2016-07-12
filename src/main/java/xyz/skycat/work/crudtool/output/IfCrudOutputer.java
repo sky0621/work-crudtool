@@ -1,26 +1,14 @@
 package xyz.skycat.work.crudtool.output;
 
-import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
+import xyz.skycat.work.crudtool.facade.view.IfSqlParseResultView;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Created by SS on 2016/06/14.
  */
 public interface IfCrudOutputer {
 
-    public void output();
-
-    void setSqlFileName(String sqlFileName);
-
-    String getSqlFileName();
-
-    void setCrudType(CrudTypeEnum crudType);
-
-    CrudTypeEnum getCrudType();
-
-    void setStreamData(Stream strm);
-
-    Stream getStreamData();
+    public void output(List<IfSqlParseResultView> viewList);
 
 }

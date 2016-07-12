@@ -21,7 +21,7 @@ public class SqlFileVisitor implements FileVisitor<Path> {
     private IfCrudMakeFacade facade;
     private List<IfSqlParseResult> sqlParseResultList;
 
-    public void setIfCrudMakeFacade(IfCrudMakeFacade facade) {
+    public SqlFileVisitor(IfCrudMakeFacade facade) {
 
         this.facade = facade;
         sqlParseResultList = new ArrayList<>();

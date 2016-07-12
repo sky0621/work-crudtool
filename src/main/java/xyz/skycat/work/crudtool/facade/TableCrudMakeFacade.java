@@ -8,7 +8,7 @@ import xyz.skycat.work.crudtool.facade.statement.resolver.TableNamesFindResolver
  */
 public class TableCrudMakeFacade extends AbstractCrudMakeFacade {
 
-    public TableCrudMakeFacade() throws CrudMakeException {
+    public TableCrudMakeFacade() {
 
         super(new TableNamesFindResolver());
     }

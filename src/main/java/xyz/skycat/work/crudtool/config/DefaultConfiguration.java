@@ -1,8 +1,13 @@
 package xyz.skycat.work.crudtool.config;
 
-import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
 import xyz.skycat.work.crudtool.facade.TableCrudMakeFacade;
+import xyz.skycat.work.crudtool.facade.converter.IfStatementResultConverter;
+import xyz.skycat.work.crudtool.facade.converter.TableNamesFindConverter;
+import xyz.skycat.work.crudtool.output.IfCrudOutputer;
+import xyz.skycat.work.crudtool.output.TsvOutputer;
+
+import java.nio.file.Paths;
 
 /**
  * Created by SS on 2016/06/10.
@@ -10,16 +15,21 @@ import xyz.skycat.work.crudtool.facade.TableCrudMakeFacade;
 public class DefaultConfiguration implements IfConfiguration {
 
     @Override
-    public void setup() {
+    public IfCrudMakeFacade createFacade() {
 
-        // TODO read config file. [ f.e. YAML ]
+        return new TableCrudMakeFacade();
     }
 
     @Override
-    public IfCrudMakeFacade buildFacade() throws CrudMakeException {
+    public IfStatementResultConverter createConverter() {
 
-        setup();
-        return new TableCrudMakeFacade();
+        return new TableNamesFindConverter();
+    }
+
+    @Override
+    public IfCrudOutputer createOutputer() {
+
+        return new TsvOutputer(Paths.get("crud.tsv"));
     }
 
 }
