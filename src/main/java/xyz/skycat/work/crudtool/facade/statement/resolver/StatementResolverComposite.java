@@ -29,7 +29,7 @@ public class StatementResolverComposite implements IfStatementResolver {
     public IfSqlParseResult resolve(Statement statement) throws CrudMakeException {
 
         Optional<IfStatementResolver> resolverOptional = statementResolvers.parallelStream().filter(st -> st.isTarget(statement)).findFirst();
-        IfStatementResolver resolver = resolverOptional.orElseThrow(() -> new CrudMakeException("StatementResolve error occured"));
+        IfStatementResolver resolver = resolverOptional.orElseThrow(() -> new CrudMakeException("CRUDのどれでもないため処理できませんでした。"));
         return resolver.resolve(statement);
     }
 

@@ -16,7 +16,7 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
 
     private IfStatementResolver statementResolver;  // For resolve statement.
 
-    public AbstractCrudMakeFacade(IfStatementResolver statementResolver) throws CrudMakeException {
+    public AbstractCrudMakeFacade(IfStatementResolver statementResolver) {
 
         this.statementResolver = statementResolver;
     }
@@ -25,16 +25,13 @@ public abstract class AbstractCrudMakeFacade implements IfCrudMakeFacade {
     public IfSqlParseResult parseProcess(Path sqlFilePath) throws CrudMakeException {
 
         if (sqlFilePath == null) {
-            // TODO log
-            throw new CrudMakeException(new IllegalArgumentException("sqlFilePath is null"));
+            throw new CrudMakeException("SQLファイルパスが渡されていません。");
         }
 
-        IfSqlParser parser = SqlParserFactory.createSqlParser();
-        IfStatementWrapper statementWrapper = parser.parse(sqlFilePath);
+        IfStatementWrapper statementWrapper = SqlParserFactory.createSqlParser().parse(sqlFilePath);
         IfSqlParseResult parseResult = statementResolver.resolve(statementWrapper.get());
         if (parseResult == null) {
-            // TODO log
-            throw new CrudMakeException("SqlParseResult is null", sqlFilePath);
+            throw new CrudMakeException("SQLパース結果が null です。", sqlFilePath);
         }
         parseResult.setSqlFileName(sqlFilePath);   // TODO Muuuuu...
         return parseResult;

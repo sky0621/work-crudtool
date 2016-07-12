@@ -32,16 +32,9 @@ public class Executor {
         this.configuration = configuration;
     }
 
-    public void run(Path targetPath) {
+    public void run(Path targetPath) throws CrudMakeException {
 
-        IfCrudMakeFacade facade = null;
-        try {
-            facade = configuration.buildFacade();
-
-        } catch (CrudMakeException e) {
-            // TODO error handling.
-            System.out.println(e.getMessage());
-        }
+        IfCrudMakeFacade facade = configuration.buildFacade();
 
         SqlFileVisitor visitor = new SqlFileVisitor();
         visitor.setIfCrudMakeFacade(facade);

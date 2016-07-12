@@ -26,10 +26,10 @@ public class TableNamesFindSqlParseResultView implements IfSqlParseResultView {
     public void output(IfCrudOutputer outputer) throws CrudMakeException {
 
         if (sqlFileName == null) {
-            throw new CrudMakeException(new IllegalArgumentException("sqlFileName is null"));
+            throw new CrudMakeException("SQLファイルパスが渡されていません。");
         }
         if (crudType == null) {
-            throw new CrudMakeException(new IllegalArgumentException("crudType is null"));
+            throw new CrudMakeException("CRUDタイプが渡されていません。");
         }
 
         outputer.setSqlFileName(sqlFileName);

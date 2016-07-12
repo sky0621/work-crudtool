@@ -17,7 +17,6 @@ import java.nio.file.Path;
  */
 public class SqlParser implements IfSqlParser {
 
-    // wrap JSqlParser and Statement.
     @Override
     public IfStatementWrapper parse(Path sqlFilePath) throws CrudMakeException {
 
@@ -25,16 +24,14 @@ public class SqlParser implements IfSqlParser {
         try {
             sqlInputStream = Files.newInputStream(sqlFilePath);
         } catch (IOException e) {
-            // TODO log
-            throw new CrudMakeException(e);
+            throw new CrudMakeException("SQLファイルを入力ストリームに変換できませんでした。", sqlFilePath, e);
         }
 
         Statement stmt = null;
         try {
             stmt = CCJSqlParserUtil.parse(sqlInputStream);
         } catch (JSQLParserException e) {
-            // TODO log
-            throw new CrudMakeException(e);
+            throw new CrudMakeException("CCJSqlParserによるパースに失敗しました。", sqlFilePath, e);
         }
 
         return new StatementWrapper(stmt);

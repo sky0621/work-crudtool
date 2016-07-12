@@ -13,8 +13,14 @@ public class CrudMakeException extends Exception {
 
     }
 
+    public CrudMakeException(String message) {
+
+        super(message);
+    }
+
     public CrudMakeException(Path sqlFilePath) {
 
+        super("[SQLファイルパス：" + sqlFilePath + "]");
         this.sqlFilePath = sqlFilePath;
     }
 
@@ -23,21 +29,27 @@ public class CrudMakeException extends Exception {
         super(e);
     }
 
-    public CrudMakeException(Path sqlFilePath, Exception e) {
-
-        super(e);
-        this.sqlFilePath = sqlFilePath;
-    }
-
     public CrudMakeException(String message, Path sqlFilePath) {
 
-        super(message);
+        super(String.format("%s [SQLファイルパス：%s]", message, sqlFilePath.getFileName().toString()));
         this.sqlFilePath = sqlFilePath;
     }
 
-    public CrudMakeException(String message) {
+    public CrudMakeException(String message, Exception e) {
 
-        super(message);
+        super(message, e);
+    }
+
+    public CrudMakeException(Path sqlFilePath, Exception e) {
+
+        super("[SQLファイルパス：" + sqlFilePath + "]", e);
+        this.sqlFilePath = sqlFilePath;
+    }
+
+    public CrudMakeException(String message, Path sqlFilePath, Exception e) {
+
+        super(String.format("%s [SQLファイルパス：%s]", message, sqlFilePath.getFileName().toString()), e);
+        this.sqlFilePath = sqlFilePath;
     }
 
     public Path getSqlFilePath() {

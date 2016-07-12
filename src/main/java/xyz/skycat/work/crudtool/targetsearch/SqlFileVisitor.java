@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.targetsearch;
 
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
 
@@ -39,8 +40,8 @@ public class SqlFileVisitor implements FileVisitor<Path> {
 
         try {
             sqlParseResultList.add(facade.parseProcess(file));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (CrudMakeException e) {
+            throw new IOException(e);
         }
         return FileVisitResult.CONTINUE;
     }
