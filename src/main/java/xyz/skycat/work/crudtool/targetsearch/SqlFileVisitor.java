@@ -1,12 +1,15 @@
 package xyz.skycat.work.crudtool.targetsearch;
 
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
+import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SS on 2016/06/04.
@@ -15,10 +18,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class SqlFileVisitor implements FileVisitor<Path> {
 
     private IfCrudMakeFacade facade;
+    private List<IfSqlParseResult> sqlParseResultList;
 
     public void setIfCrudMakeFacade(IfCrudMakeFacade facade) {
 
         this.facade = facade;
+        sqlParseResultList = new ArrayList<>();
     }
 
     @Override
@@ -33,23 +38,7 @@ public class SqlFileVisitor implements FileVisitor<Path> {
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
         try {
-            // ---- |
-            // FIXME try
-            try {
-                Path par = file.getParent();
-                String ts = file.toString();
-                String basePath = "C:\\FHS\\usr\\local\\work.crudtool\\sql";
-                int len = basePath.length();
-                String ts2 = ts.substring(len + 1);
-                // Visitor in Visitor ?
-
-                // sql <- service ...... search by using "Throwable"
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // ---- |
-
-            facade.parseProcess(file);
+            sqlParseResultList.add(facade.parseProcess(file));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -70,6 +59,10 @@ public class SqlFileVisitor implements FileVisitor<Path> {
         // TODO think! what to do.
 //        System.out.println("[POST]" + dir.getFileName().toString());
         return FileVisitResult.CONTINUE;
+    }
+
+    public List<IfSqlParseResult> getSqlParseResultList() {
+        return sqlParseResultList;
     }
 
 }

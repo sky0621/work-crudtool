@@ -1,8 +1,8 @@
 package xyz.skycat.work.crudtool.config;
 
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
 import xyz.skycat.work.crudtool.facade.TableCrudMakeFacade;
-import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 import xyz.skycat.work.crudtool.output.TsvOutputer;
 
@@ -27,7 +27,7 @@ public class DefaultConfiguration implements IfConfiguration {
     public IfCrudMakeFacade buildFacade() throws CrudMakeException {
 
         setup();
-        return new TableCrudMakeFacade(this.outputer);
+        return new TableCrudMakeFacade();
     }
 
 }

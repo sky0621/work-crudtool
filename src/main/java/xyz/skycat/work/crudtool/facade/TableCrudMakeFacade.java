@@ -1,17 +1,16 @@
 package xyz.skycat.work.crudtool.facade;
 
-import xyz.skycat.work.crudtool.enums.FunctionKind;
 import xyz.skycat.work.crudtool.exception.CrudMakeException;
-import xyz.skycat.work.crudtool.output.IfCrudOutputer;
+import xyz.skycat.work.crudtool.facade.statement.resolver.TableNamesFindResolver;
 
 /**
  * Created by SS on 2016/06/10.
  */
 public class TableCrudMakeFacade extends AbstractCrudMakeFacade {
 
-    public TableCrudMakeFacade(IfCrudOutputer outputer) throws CrudMakeException {
+    public TableCrudMakeFacade() throws CrudMakeException {
 
-        super(FunctionKind.TABLE_NAMES_FIND, outputer);
+        super(new TableNamesFindResolver());
     }
 
 }

@@ -34,14 +34,12 @@ public class TsvOutputer extends AbstractCrudOutputer {
                 try {
                     writer.write(String.format("%s(%s)\t", tableName, getCrudType().alias()));
                 } catch (IOException e) {
-                    // TODO エラーハンドリング！
                     e.printStackTrace();
                 }
             });
             writer.write("\n");
             writer.flush();
         } catch (IOException e) {
-            // TODO エラーハンドリング！
             e.printStackTrace();
         }
     }
