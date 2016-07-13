@@ -1,1 +1,6 @@
-
+SQLファイル	third_table	mst_item	for_insert_table	NEXT_TBL	geod_interstates	geod_cities	mst_item	tmp_tmp	
+C:\FHS\usr\local\work.crudtool\sql\sql1\test3.sql	R	R	-	-	-	-	R	-	
+C:\FHS\usr\local\work.crudtool\sql\sql1\test4.sql	-	-	C	-	-	-	-	-	
+C:\FHS\usr\local\work.crudtool\sql\sql2\next.sql	-	-	-	R	-	-	-	-	
+C:\FHS\usr\local\work.crudtool\sql\test.sql	-	-	-	-	R	R	-	-	
+C:\FHS\usr\local\work.crudtool\sql\test2.sql	-	R	-	-	-	-	R	R	

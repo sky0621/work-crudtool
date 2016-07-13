@@ -5,10 +5,11 @@ package xyz.skycat.work.crudtool.facade.type;
  */
 public enum CrudTypeEnum {
 
-    SELECT("ŒŸõ", "R"),
-    INSERT("“o˜^", "C"),
-    UPDATE("XV", "U"),
-    DELETE("íœ", "D");
+    SELECT("å‚ç…§", "R"),
+    INSERT("ç™»éŒ²", "C"),
+    UPDATE("æ›´æ–°", "U"),
+    DELETE("å‰Šé™¤", "D"),
+    OTHERS("ãã®ä»–", "-");
 
     private String jname;
 

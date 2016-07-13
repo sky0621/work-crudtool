@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface IfStatementResultConverter {
 
-    List<IfSqlParseResultView> convert(List<IfSqlParseResult> sqlParseResultList);
+    IfSqlParseResultView convert(List<IfSqlParseResult> sqlParseResultList);
 
 }

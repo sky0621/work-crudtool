@@ -1,10 +1,10 @@
 package xyz.skycat.work.crudtool.facade.converter;
 
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
-import xyz.skycat.work.crudtool.facade.view.IfSqlParseResultView;
-import xyz.skycat.work.crudtool.facade.view.TableNamesFindSqlParseResultView;
+import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
+import xyz.skycat.work.crudtool.facade.view.*;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by SS on 2016/06/06.
@@ -12,33 +12,49 @@ import java.util.*;
 public class TableNamesFindConverter implements IfStatementResultConverter {
 
     @Override
-    public List<IfSqlParseResultView> convert(List<IfSqlParseResult> sqlParseResultList) {
+    public IfSqlParseResultView convert(List<IfSqlParseResult> sqlParseResultList) {
 
-        List<IfSqlParseResultView> parseResultViewList = new ArrayList<>();
+        // MEMO: sqlParseResultList have all SQL files parse results.
+        // MEMO:   [0] : TableNamesFindSqlParseResult
+        // MEMO:                      - sqlFileName : fullpath
+        // MEMO:                      - crudType    : CrudTypeEnum ... SELECT
+        // MEMO:                      - tableList   : List<String>
 
-        // aggregate all table set that using.
-        Set<String> tableNameSet = new TreeSet<>();
+        IfSqlParseResultView parseResultView = new TableNamesFindSqlParseResultView();
+
+        /*
+         * Make Header View
+         */
+        IfSqlParseResultHeaderView parseResultHeaderView = new TableNamesFindSqlParseResultHeaderView();
+        parseResultHeaderView.setLabel("SQLファイル");
+        parseResultView.setHeader(parseResultHeaderView);
+
+        // 1st. aggregate all table set that using.
         sqlParseResultList.stream().forEach(parseResult -> {
             List<String> tableNameList = (List<String>) parseResult.getResult();
-            tableNameList.stream().forEach(tableName -> tableNameSet.add(tableName));
+            tableNameList.stream().forEach(tableName -> {
+                parseResultHeaderView.addTableNameList(tableName);
+            });
         });
 
-        //
-        TableNamesFindSqlParseResultView view = new TableNamesFindSqlParseResultView();
-        sqlParseResultList.stream().forEach(parseResult -> {
-            TableNamesFindSqlParseResultView parseResultView = new TableNamesFindSqlParseResultView();
-            parseResultView.setSqlFileName(parseResult.getSqlFileName());
+        /*
+         * Make Body List View
+         */
+        sqlParseResultList.stream().forEach(parseResultByOneSqlFile -> {
+            IfSqlParseResultBodyView bodyView = new TableNamesFindSqlParseResultBodyView();
+            bodyView.setSqlFileName(parseResultByOneSqlFile.getSqlFileName());
+            parseResultView.addBody(bodyView);
 
-            // FIXME ........................!!!!
-
-            List<String> tableNameList = (List<String>) parseResult.getResult();
-            tableNameList.stream().forEach(tableName -> tableNameSet.add(tableName));
+            parseResultHeaderView.getTableNameList().stream().forEach(tableName -> {
+                if (((List<String>) parseResultByOneSqlFile.getResult()).contains(tableName)) {
+                    bodyView.addTableCrudList(parseResultByOneSqlFile.getCrudType());
+                } else {
+                    bodyView.addTableCrudList(CrudTypeEnum.OTHERS);
+                }
+            });
         });
 
-//        view.setCrudType(sqlParseResult.getCrudType());
-//        view.setSqlFileName(sqlParseResult.getSqlFileName());
-//        view.setTableNameList((List<String>) sqlParseResult.getResult());
-        return parseResultViewList;
+        return parseResultView;
     }
 
 }

@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.output;
 
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.view.IfSqlParseResultView;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ConsoleOutputer implements IfCrudOutputer {
 
     @Override
-    public void output(List<IfSqlParseResultView> viewList) {
+    public void output(IfSqlParseResultView view) throws CrudMakeException {
         // FIXME
 //        System.out.print(String.format("%s\t", getSqlFileName()));
 //        getStreamData().forEachOrdered(tableName -> {

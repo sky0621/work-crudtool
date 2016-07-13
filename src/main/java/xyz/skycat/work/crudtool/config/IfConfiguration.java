@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.config;
 
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
 import xyz.skycat.work.crudtool.facade.converter.IfStatementResultConverter;
 import xyz.skycat.work.crudtool.output.IfCrudOutputer;
@@ -13,6 +14,6 @@ public interface IfConfiguration {
 
     IfStatementResultConverter createConverter();
 
-    IfCrudOutputer createOutputer();
+    IfCrudOutputer createOutputer() throws CrudMakeException;
 
 }

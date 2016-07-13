@@ -28,4 +28,8 @@ public class TableNamesFindSqlParseResult extends AbstractSqlParseResult {
         return tableList;
     }
 
+    public List<String> getTableList() {
+        return tableList == null ? new ArrayList<>() : (List<String>) tableList;
+    }
+
 }

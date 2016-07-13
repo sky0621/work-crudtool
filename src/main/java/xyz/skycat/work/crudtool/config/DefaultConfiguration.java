@@ -1,5 +1,6 @@
 package xyz.skycat.work.crudtool.config;
 
+import xyz.skycat.work.crudtool.exception.CrudMakeException;
 import xyz.skycat.work.crudtool.facade.IfCrudMakeFacade;
 import xyz.skycat.work.crudtool.facade.TableCrudMakeFacade;
 import xyz.skycat.work.crudtool.facade.converter.IfStatementResultConverter;
@@ -27,7 +28,7 @@ public class DefaultConfiguration implements IfConfiguration {
     }
 
     @Override
-    public IfCrudOutputer createOutputer() {
+    public IfCrudOutputer createOutputer() throws CrudMakeException {
 
         return new TsvOutputer(Paths.get("crud.tsv"));
     }
