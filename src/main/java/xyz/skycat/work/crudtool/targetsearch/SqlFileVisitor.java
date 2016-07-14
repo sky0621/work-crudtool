@@ -41,7 +41,7 @@ public class SqlFileVisitor implements FileVisitor<Path> {
         try {
             sqlParseResultList.add(facade.parseProcess(file));
         } catch (CrudMakeException e) {
-            throw new IOException(e);
+            e.printStackTrace();
         }
         return FileVisitResult.CONTINUE;
     }

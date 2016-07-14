@@ -6,7 +6,7 @@
 
     <groupId>com.github.sky0621.work.crudtool</groupId>
     <artifactId>work.crudtool</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.2</version>
     <build>
         <plugins>
             <plugin>

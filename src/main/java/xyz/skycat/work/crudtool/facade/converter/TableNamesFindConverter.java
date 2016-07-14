@@ -1,9 +1,11 @@
 package xyz.skycat.work.crudtool.facade.converter;
 
 import xyz.skycat.work.crudtool.facade.sqlparser.result.IfSqlParseResult;
+import xyz.skycat.work.crudtool.facade.sqlparser.result.TableNamesFindSqlParseResult;
 import xyz.skycat.work.crudtool.facade.type.CrudTypeEnum;
 import xyz.skycat.work.crudtool.facade.view.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,12 +28,15 @@ public class TableNamesFindConverter implements IfStatementResultConverter {
          * Make Header View
          */
         IfSqlParseResultHeaderView parseResultHeaderView = new TableNamesFindSqlParseResultHeaderView();
-        parseResultHeaderView.setLabel("SQLファイル");
+        parseResultHeaderView.setLabel("SQL file");
         parseResultView.setHeader(parseResultHeaderView);
 
         // 1st. aggregate all table set that using.
         sqlParseResultList.stream().forEach(parseResult -> {
-            List<String> tableNameList = (List<String>) parseResult.getResult();
+            List<String> tableNameList = new ArrayList<String>();
+            if (parseResult instanceof TableNamesFindSqlParseResult) {
+                tableNameList = (List<String>) parseResult.getResult();
+            }
             tableNameList.stream().forEach(tableName -> {
                 parseResultHeaderView.addTableNameList(tableName);
             });
@@ -46,10 +51,14 @@ public class TableNamesFindConverter implements IfStatementResultConverter {
             parseResultView.addBody(bodyView);
 
             parseResultHeaderView.getTableNameList().stream().forEach(tableName -> {
-                if (((List<String>) parseResultByOneSqlFile.getResult()).contains(tableName)) {
-                    bodyView.addTableCrudList(parseResultByOneSqlFile.getCrudType());
+                if (parseResultByOneSqlFile instanceof TableNamesFindSqlParseResult) {
+                    if (((List<String>) parseResultByOneSqlFile.getResult()).contains(tableName)) {
+                        bodyView.addTableCrudList(parseResultByOneSqlFile.getCrudType());
+                    } else {
+                        bodyView.addTableCrudList(CrudTypeEnum.NONE);
+                    }
                 } else {
-                    bodyView.addTableCrudList(CrudTypeEnum.OTHERS);
+                    bodyView.addTableCrudList(CrudTypeEnum.ERROR);
                 }
             });
         });

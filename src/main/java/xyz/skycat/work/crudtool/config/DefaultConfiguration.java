@@ -8,6 +8,7 @@ import xyz.skycat.work.crudtool.facade.converter.TableNamesFindConverter;
 import xyz.skycat.work.crudtool.output.IfCrudOutputer;
 import xyz.skycat.work.crudtool.output.TsvOutputer;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -28,9 +29,9 @@ public class DefaultConfiguration implements IfConfiguration {
     }
 
     @Override
-    public IfCrudOutputer createOutputer() throws CrudMakeException {
+    public IfCrudOutputer createOutputer(Path outputPath) throws CrudMakeException {
 
-        return new TsvOutputer(Paths.get("crud.tsv"));
+        return new TsvOutputer(outputPath);
     }
 
 }

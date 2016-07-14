@@ -1,4 +1,4 @@
-SELECT /*+ ORDERED  NO_INDEX(c pop90_idx) */
+A SELECT /*+ ORDERED  NO_INDEX(c pop90_idx) */
        c.city, pop90,
        sdo_nn_distance (1) distance_in_miles
 FROM geod_interstates i,

@@ -8,11 +8,28 @@ import java.nio.file.Paths;
  */
 public class Argument {
 
-    public static Path parse(String... args) {
+    public Path targetRootPath = null;
+    public Path outputPath = null;
 
-        // TODO various check!
+    public Argument(String... args) {
 
-        return Paths.get(args[0]).toAbsolutePath();
+        if (args == null || args.length == 0) {
+            throw new IllegalArgumentException("少なくとも解析対象のルートディレクトリ（フルパス）を指定する必要があります。");
+        }
+
+        String targetRootPathStr = args[0];
+        targetRootPath = Paths.get(targetRootPathStr);
+
+        String outputPathStr = null;
+        if (args.length == 2) {
+            outputPathStr = args[1];
+        } else {
+            outputPathStr = "crud.tsv";
+        }
+        if (!outputPathStr.endsWith(".tsv")) {
+            outputPathStr = outputPathStr.concat(".tsv");
+        }
+        outputPath = Paths.get(outputPathStr);
     }
 
 }

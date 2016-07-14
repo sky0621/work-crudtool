@@ -9,7 +9,8 @@ public enum CrudTypeEnum {
     INSERT("登録", "C"),
     UPDATE("更新", "U"),
     DELETE("削除", "D"),
-    OTHERS("その他", "-");
+    NONE("CRUD無し", "-"),
+    ERROR("解析失敗", "ERROR");
 
     private String jname;
 
