@@ -2,6 +2,7 @@ package xyz.skycat.work.crudtool.facade.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by SS on 2016/07/14.
@@ -10,10 +11,10 @@ public class TableNamesFindSqlParseResultHeaderView implements IfSqlParseResultH
 
     private String label;
 
-    private List<String> tableNameList;
+    private TreeSet<String> tableNameList;
 
     public TableNamesFindSqlParseResultHeaderView() {
-        tableNameList = new ArrayList<>();
+        tableNameList = new TreeSet<>();
     }
 
     @Override
@@ -27,7 +28,7 @@ public class TableNamesFindSqlParseResultHeaderView implements IfSqlParseResultH
     }
 
     @Override
-    public List<String> getTableNameList() {
+    public TreeSet<String> getTableNameList() {
         return tableNameList;
     }
 
