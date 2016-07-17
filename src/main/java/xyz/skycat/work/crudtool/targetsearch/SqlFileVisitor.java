@@ -38,10 +38,19 @@ public class SqlFileVisitor implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
+        if (file == null) {
+            return FileVisitResult.CONTINUE;
+        }
+        if (!file.toString().endsWith(".sql")) {
+            return FileVisitResult.CONTINUE;
+        }
         try {
-            sqlParseResultList.add(facade.parseProcess(file));
-        } catch (CrudMakeException e) {
-            e.printStackTrace();
+            IfSqlParseResult result = facade.parseProcess(file);
+            if (result != null) {
+                sqlParseResultList.add(result);
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
         return FileVisitResult.CONTINUE;
     }

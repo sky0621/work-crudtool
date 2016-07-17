@@ -1,6 +1,7 @@
 package xyz.skycat.work.crudtool.facade.view;
 
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by SS on 2016/07/14.
@@ -11,7 +12,7 @@ public interface IfSqlParseResultHeaderView {
 
     void setLabel(String label);
 
-    List<String> getTableNameList();
+    TreeSet<String> getTableNameList();
 
     void addTableNameList(String tableName);
 
