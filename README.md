@@ -1,28 +1,34 @@
-# work-crudtool
+# SQLファイル単位のテーブルCRUD一覧自動生成ツール
 
-## growing up process ... Not Test1st. Oops.
+## ■修正履歴
+###### 2016/07/14 公開
+###### 2016/07/15 バグfix（解析不能SQLにはERRORと表記してTSVに加えるよう修正）
+　　　　　　→　指定ディレクトリ配下の全SQLファイルをパース可能になった。
+###### 2016/07/19 GUI対応版アップ
 
-### 1st SQL string parse (READ only) -> get TableName List
+## ■紹介
+###### CRUD図がないと、機能とテーブル（データ）との関係が（ソース追わないと）わからない。でも、CRUD図のメンテは、つらい。
+###### ということで、自動生成できないかと思って作りました。
+###### とりあえず第１弾としては、SQLファイルが置かれている指定のディレクトリ配下のSQLファイルを解析（※偉そうに解析と言ってますが、解析自体は別の人が作ったモジュール）して、テーブル名の一覧にCRUD付けているだけです。
+###### ＜今後＞
+###### 当初やりたかったのは、Action → Service → SQL → テーブル名一覧のCRUD という感じで、機能ごとにどのテーブル使ってるのかが知りたかったので、そこまでいけるようにしたい（並行して、ソースの構文木を解析して呼び出し関係やらまとめるツールも開発中）。
+###### あと、SQLファイルのパースができるということは、そのSQLに対するテストコードも（今のSQLが正とするなら）自動生成できるので、そういうツールも作ろうと思ってます。
 
-### 2nd SQL file parse -> mapping { key: SQL file name, value: TableName List }
+## ■使い方
+###### ZIP回答して、bat ファイルをコマンドプロンプトで実行してください。
+_※なにしろ趣味で作ったのでデバッグ甘いです。_
 
-### 3rd Directory search -> List<Map>
+_※２ウェイSQLファイルをパースしており、SQLとして成立しないものは当然落ちます。（begin使ってる系があやしい。）_
 
-### 4th Output TSV file
+###### 【CUI版】
+###### 　out/crudtool.zip
+###### 　<引数>
+###### 　　第１引数（★必須★）：解析したいSQLファイルが置かれたディレクトリのフルパスです。
+###### 　　第２引数（任意）：TSVファイル出力先を変えたい場合にフルパスを指定。
+###### 　　たとえばコマンドプロンプトで、下記のようにすると、bat ファイルと同じ場所に「crud.tsv」というTSVファイルを出力します。
+###### 　　>crudtool.bat D:\Projects\workspace\HPGS-hp-csp-webapp\src\main\resources\sql
+###### 【GUI版】
+###### 　out/crudtoolgui.zip
+_※コマンドプロンプト版と違い、起動時の引数は不要（GUIで指定するので）。_
 
-### 5th grep SQL file name -> pairing { Service class name, SQL file name }
-
-### 6th Service class name -> Service class name AND method name
-
-### 7th Treat other DML(INSERT, UPDATE, DELETE)
-
-  .
-  .
-  .
-
-### Nth aggregate 1 Action class - * Service class - * SQL file - * TableName
-
-
-  and Next Term.
-
-### Automake TestClass each Service class
+_パース完了したかどうかが画面に表現されないので注意。指定ディレクトリ内にTSVができあがっていれば完了。_
