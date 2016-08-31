@@ -1,6 +1,6 @@
 # SQLファイル単位のテーブルCRUD一覧自動生成ツール
 
-## ■言語・ﾂｰﾙ・開発環境
+## ■言語・ツール・開発環境
 ###### Java8/IntelliJ/JSqlParser(*)
 ###### * http://jsqlparser.sourceforge.net/home.php
 
